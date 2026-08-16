@@ -8,7 +8,6 @@ feature_columns = pickle.load(open("feature_columns.pkl", "rb"))
 st.title("Employee Attrition Prediction")
 st.write("Predict whether an employee is likely to leave the company.")
 
-# Employee Information
 st.header("Employee Information")
 
 Age = st.number_input(
@@ -17,10 +16,12 @@ Age = st.number_input(
     max_value=60,
     value=30
 )
+
 OverTime = st.selectbox(
     "OverTime",
     ["Yes", "No"]
 )
+
 JobRole = st.selectbox(
     "Job Role",
     [
@@ -101,7 +102,27 @@ StockOptionLevel = st.number_input(
     value=1
 )
 
-# Prediction
+YearsSinceLastPromotion = st.number_input(
+    "Years Since Last Promotion",
+    min_value=0,
+    max_value=15,
+    value=2
+)
+
+NumCompaniesWorked = st.number_input(
+    "Number of Companies Worked",
+    min_value=0,
+    max_value=10,
+    value=2
+)
+
+YearsWithCurrManager = st.number_input(
+    "Years With Current Manager",
+    min_value=0,
+    max_value=17,
+    value=3
+)
+
 if st.button("Predict Attrition"):
 
     input_data = pd.DataFrame({
@@ -116,14 +137,17 @@ if st.button("Predict Attrition"):
         "JobSatisfaction": [JobSatisfaction],
         "EnvironmentSatisfaction": [EnvironmentSatisfaction],
         "YearsAtCompany": [YearsAtCompany],
-        "StockOptionLevel": [StockOptionLevel]
+        "StockOptionLevel": [StockOptionLevel],
+        "YearsSinceLastPromotion": [YearsSinceLastPromotion],
+        "NumCompaniesWorked": [NumCompaniesWorked],
+        "YearsWithCurrManager": [YearsWithCurrManager]
     })
 
     input_data = input_data[feature_columns]
 
-    # Prediction
     prediction = model.predict(input_data)
+
     if prediction[0] == 1:
-        st.error("⚠️ Employee is likely to leave.")
+        st.error("Employee is likely to leave.")
     else:
-        st.success("✅ Employee is likely to stay.") 
+        st.success("Employee is likely to stay.")
