@@ -35,8 +35,6 @@ The model is deployed using **Streamlit**, allowing users to enter employee deta
 pip install -r requirements.txt
 streamlit run app.py
 ```
+## Live Demo
 
-## Author
-
-**Suhan Khan**
-Computer Science Engineering Student
+[Try the Employee Attrition Predictor](https://employeeattrition-gxwdwwxpzvmqtyxmmfep2a.streamlit.app/)
